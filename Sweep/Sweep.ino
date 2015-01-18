@@ -1,36 +1,35 @@
-/* Sweep
- by BARRAGAN <http://barraganstudio.com> 
- This example code is in the public domain.
-
- modified 8 Nov 2013
- by Scott Fitzgerald
- http://arduino.cc/en/Tutorial/Sweep
-*/ 
-
 #include <Servo.h> 
  
-Servo myservo;  // create servo object to control a servo 
-                // twelve servo objects can be created on most boards
+Servo servo;  
 
 int minPosition = 54;
 int maxPosition = 126;
-int pos = minPosition;    // variable to store the servo position 
+int stepSize = 4;
+int servoPosition = minPosition;
  
 void setup() 
 { 
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object 
+  servo.attach(9);
 } 
  
 void loop() 
 { 
-  for(pos = minPosition; pos <= maxPosition; pos += 2) 
-  {                                  // in steps of 1 degree 
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
-  } 
-  for(pos = maxPosition; pos >= minPosition; pos -= 2)     
+  for(int i = 0; i < 1; i = i + 1)
+  {
+    step(); 
+  }
+}
+
+void step()
+{
+  for(servoPosition = minPosition; servoPosition <= maxPosition; servoPosition += stepSize) 
+  {                                  
+    servo.write(servoPosition);              
+    delay(15);                        
+  }
+  for(servoPosition = maxPosition; servoPosition >= minPosition; servoPosition -= stepSize)     
   {                                
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
-    delay(15);                       // waits 15ms for the servo to reach the position 
+    servo.write(servoPosition);              
+    delay(15);                      
   } 
-} 
+}
