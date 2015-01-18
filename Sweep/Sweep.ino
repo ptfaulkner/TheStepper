@@ -4,8 +4,10 @@ Servo servo;
 
 int minPosition = 54;
 int maxPosition = 126;
-int stepSize = 4;
+int stepSize = 6;
 int servoPosition = minPosition;
+int timesToStep = 1000;
+int steps = 0;
  
 void setup() 
 { 
@@ -14,9 +16,10 @@ void setup()
  
 void loop() 
 { 
-  for(int i = 0; i < 1; i = i + 1)
+  if(steps < timesToStep) 
   {
-    step(); 
+     step();
+     steps++;
   }
 }
 
@@ -26,7 +29,7 @@ void step()
   {                                  
     servo.write(servoPosition);              
     delay(15);                        
-  }
+  } 
   for(servoPosition = maxPosition; servoPosition >= minPosition; servoPosition -= stepSize)     
   {                                
     servo.write(servoPosition);              
