@@ -33,7 +33,7 @@ void setup()
   delay(oneMinute * 45);
   step(350, 4);
   delay(oneMinute * 30);
-  step(2000, * 3);
+  step(2000, 3);
 } 
  
 void loop() 
@@ -41,7 +41,7 @@ void loop()
 
 }
 
-step(int steps, int stepSize) 
+void step(int steps, int stepSize) 
 {
   for(int i = 0; i < steps; i++)
   {
