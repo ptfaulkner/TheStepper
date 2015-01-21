@@ -7,32 +7,38 @@ Step stepper(servo);
 int minPosition = 54;
 int maxPosition = 126;
 int servoPosition = minPosition;
-int oneMinute = 1000 * 60;
+unsigned long oneMinute = 6000;
+unsigned long oneHour = 3600000;
+unsigned long thirtyMinutes = 1800000;
+unsigned long fourtyFiveMinutes = 2700000;
+unsigned long eightyMinutes = 4800000;
  
 void setup() 
 { 
   servo.attach(9);
   
+  step(5, 4);
+  delay(oneMinute);
   frequency();// 1
-  delay(oneMinute * 60);  //pause for one hour
+  delay(oneHour);  //pause for one hour
   frequency();// 2
-  delay(oneMinute * 60);  //pause for one hour
+  delay(oneHour);  //pause for one hour
   intensity();// 3
-  delay(oneMinute * 60);  //pause for one hour
+  delay(oneHour);  //pause for one hour
   frequency();// 4
-  delay(oneMinute * 5);
+  delay(72000);
   step(200, 4);
-  delay(oneMinute * 60);  //pause for one hour
+  delay(oneHour);  //pause for one hour
   frequency();// 5
-  delay(oneMinute * 30);
+  delay(thirtyMinutes);
   step(300, 4);
-  delay(oneMinute * 60);  //pause for one hour
+  delay(oneHour);  //pause for one hour
   frequency();// 6
-  delay(oneMinute * 80);
+  delay(eightyMinutes);
   step(750, 4);
-  delay(oneMinute * 45);
+  delay(fourtyFiveMinutes);
   step(350, 4);
-  delay(oneMinute * 30);
+  delay(thirtyMinutes);
   step(2000, 3);
 } 
  
