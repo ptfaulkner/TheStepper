@@ -1,66 +1,128 @@
 #include <Servo.h>
 #include <Step.h>
- 
+
 Servo servo;
 Step stepper(servo);
+int servoPosition = 54;
 
-int minPosition = 54;
-int maxPosition = 126;
-int servoPosition = minPosition;
-unsigned long oneMinute = 6000;
-unsigned long oneHour = 3600000;
-unsigned long thirtyMinutes = 1800000;
-unsigned long fourtyFiveMinutes = 2700000;
-unsigned long eightyMinutes = 4800000;
- 
+int ledState = LOW;
+unsigned long previousFrequencyRun = 0;
+unsigned long previousIntensityRun = 0;
+int frequencyCountForDay = 0;
+unsigned long firstRandomRun = 0;
+unsigned long previousRandomRun = 0;
+long randomTime;
+
+const int ledPin =  13;
+const int minPosition = 54;
+const int maxPosition = 126;
+
+const unsigned long sixSeconds = 15000;
+const unsigned long oneHour = 3600000;
+const unsigned long thirtyMinutes = 1800000;
+const unsigned long fourtyFiveMinutes = 2700000;
+const unsigned long eightyMinutes = 4800000;
+const unsigned long eighteenHours = 64800000;
+const unsigned long oneDay = 86400000;
+const unsigned long fourteenHours = 50400000;
+
+const int BlinkSlow = 0;
+const int On = 1;
+const int Off = 2;
+const int BlinkFast = 3;
+
 void setup() 
 { 
   servo.attach(9);
-  
-  step(5, 4);
-  delay(oneMinute);
-  frequency();// 1
-  delay(oneHour);  //pause for one hour
-  frequency();// 2
-  delay(oneHour);  //pause for one hour
-  intensity();// 3
-  delay(oneHour);  //pause for one hour
-  frequency();// 4
-  delay(72000);
-  step(200, 4);
-  delay(oneHour);  //pause for one hour
-  frequency();// 5
-  delay(thirtyMinutes);
-  step(300, 4);
-  delay(oneHour);  //pause for one hour
-  frequency();// 6
-  delay(eightyMinutes);
-  step(750, 4);
-  delay(fourtyFiveMinutes);
-  step(350, 4);
-  delay(thirtyMinutes);
-  step(2000, 3);
+  pinMode(ledPin, OUTPUT);
+  randomSeed(analogRead(0));
+  //Serial.begin(9600); 
+  randomTime = random(10000, 45001);
 } 
- 
+
 void loop() 
 { 
+  unsigned long currentMillis = millis();
+/*
+  if(frequency(currentMillis))
+  {
+     return; 
+  }
 
+  if(intensity(currentMillis))
+  {
+    return;
+  }
+*/
+  coordinateRandom(currentMillis);
 }
 
-void step(int steps, int stepSize) 
+boolean frequency(int currentMillis)
 {
-  for(int i = 0; i < steps; i++)
+  if(currentMillis - previousFrequencyRun > 120000)
   {
-    stepper.step(minPosition, maxPosition, stepSize);
+    frequencyCountForDay = 0;
+  }
+
+  if(currentMillis - previousFrequencyRun > sixSeconds) {
+    if(frequencyCountForDay < 6) {
+      frequencyCountForDay++;
+      previousFrequencyRun = currentMillis;   
+      step(5, 4, On);
+      return true;
+    }
+  }
+  
+  return false;   
+}
+
+boolean intensity(int currentMillis)
+{
+  if(currentMillis - previousIntensityRun > oneDay) {
+    previousIntensityRun = currentMillis;
+    step(3500, 6, Off);
+    return true;
+  }
+  
+  return false;
+}
+
+void coordinateRandom(int currentMillis)
+{
+  if(currentMillis - previousRandomRun > randomTime)
+  {
+    previousRandomRun = currentMillis;
+    long randomSteps = random(5, 6);
+    long randomSpeed = random(2, 3);
+
+    step(randomSteps, randomSpeed, BlinkFast);
+    
+    randomTime = random(10000, 45001);
   }
 }
 
-void frequency()
+void step(int steps, int stepSize, int ledMode) 
 {
-  step(500, 4);
+  if(ledMode == On)
+  {
+    digitalWrite(ledPin, HIGH);
+  }
+
+  for(int i = 0; i < steps; i++)
+  {
+    if(ledMode == BlinkFast) 
+    {
+      digitalWrite(ledPin, HIGH);
+    }
+
+    stepper.step(minPosition, maxPosition, stepSize);
+
+    if(ledMode == BlinkFast) 
+    {
+      digitalWrite(ledPin, LOW);
+    }
+  }
+
+  digitalWrite(ledPin, LOW);
 }
 
-void intensity()
-{
-  step(3500, 6);
-}
