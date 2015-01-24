@@ -36,14 +36,13 @@ void setup()
   servo.attach(9);
   pinMode(ledPin, OUTPUT);
   randomSeed(analogRead(0));
-  //Serial.begin(9600); 
-  randomTime = random(10000, 45001);
+  randomTime = random(thirtyMinutes, eightyMinutes);
 } 
 
 void loop() 
 { 
   unsigned long currentMillis = millis();
-/*
+
   if(frequency(currentMillis))
   {
      return; 
@@ -53,22 +52,22 @@ void loop()
   {
     return;
   }
-*/
+
   coordinateRandom(currentMillis);
 }
 
 boolean frequency(int currentMillis)
 {
-  if(currentMillis - previousFrequencyRun > 120000)
+  if(currentMillis - previousFrequencyRun > eighteenHours)
   {
     frequencyCountForDay = 0;
   }
 
-  if(currentMillis - previousFrequencyRun > sixSeconds) {
+  if(currentMillis - previousFrequencyRun > oneHour) {
     if(frequencyCountForDay < 6) {
       frequencyCountForDay++;
       previousFrequencyRun = currentMillis;   
-      step(5, 4, On);
+      step(500, 4, On);
       return true;
     }
   }
@@ -92,12 +91,12 @@ void coordinateRandom(int currentMillis)
   if(currentMillis - previousRandomRun > randomTime)
   {
     previousRandomRun = currentMillis;
-    long randomSteps = random(5, 6);
+    long randomSteps = random(40, 80);
     long randomSpeed = random(2, 3);
 
     step(randomSteps, randomSpeed, BlinkFast);
     
-    randomTime = random(10000, 45001);
+    randomTime = random(thirtyMinutes, eightyMinutes);
   }
 }
 
