@@ -62,8 +62,10 @@ boolean frequency(int currentMillis)
     frequencyCountForDay = 0;
   }
 
-  if(currentMillis - previousFrequencyRun > oneHour) {
-    if(frequencyCountForDay < 6) {
+  if(currentMillis - previousFrequencyRun > oneHour) 
+  {
+    if(frequencyCountForDay < 6) 
+    {
       frequencyCountForDay++;
       previousFrequencyRun = currentMillis;   
       step(500, 4, On);
@@ -76,7 +78,8 @@ boolean frequency(int currentMillis)
 
 boolean intensity(int currentMillis)
 {
-  if(currentMillis - previousIntensityRun > oneDay) {
+  if(currentMillis - previousIntensityRun > oneDay) 
+  {
     previousIntensityRun = currentMillis;
     step(3500, 6, Off);
     return true;
