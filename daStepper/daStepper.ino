@@ -17,14 +17,13 @@ const int ledPin =  13;
 const int minPosition = 54;
 const int maxPosition = 126;
 
-const unsigned long sixSeconds = 15000;
-const unsigned long oneHour = 3600000;
-const unsigned long thirtyMinutes = 1800000;
-const unsigned long fourtyFiveMinutes = 2700000;
-const unsigned long eightyMinutes = 4800000;
-const unsigned long eighteenHours = 64800000;
-const unsigned long oneDay = 86400000;
-const unsigned long fourteenHours = 50400000;
+const unsigned long oneDay            = 86400000;
+const unsigned long eighteenHours     = 64800000;
+const unsigned long fourteenHours     = 50400000;
+const unsigned long eightyMinutes     =  4800000;
+const unsigned long oneHour           =  3600000;
+const unsigned long fourtyFiveMinutes =  2700000;
+const unsigned long thirtyMinutes     =  1800000;
 
 const int BlinkSlow = 0;
 const int On = 1;
