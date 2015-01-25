@@ -1,8 +1,10 @@
 #include <Servo.h>
 #include <Step.h>
+#include <GoalGetter.h>
 
 Servo servo;
 Step stepper(servo, 13, 54, 126);
+GoalGetter goalGetter(stepper);
 int servoPosition = 54;
 
 int ledState = LOW;
@@ -38,7 +40,7 @@ void loop()
 { 
   unsigned long currentMillis = millis();
 
-  if(frequency(currentMillis))
+  if(goalGetter.Frequency(currentMillis))
   {
      return; 
   }
