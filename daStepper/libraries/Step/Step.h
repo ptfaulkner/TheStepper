@@ -6,10 +6,14 @@
 class Step 
 {
   public:
-    Step(Servo servo);
-    void step(int minPosition, int maxPosition, int stepSize);
+    Step(Servo servo, int ledPin, int minPosition, int maxPosition);
+    void TakeStep(int minPosition, int maxPosition, int stepSize);
+	void RunSteps(int numberOfSteps, int sizeOfStep, int ledMode);
   private:
     Servo _servo;
+	int _ledPin;
+	int _minPosition;
+	int _maxPosition;
 };
 
 #endif

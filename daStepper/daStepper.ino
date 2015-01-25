@@ -2,7 +2,7 @@
 #include <Step.h>
 
 Servo servo;
-Step stepper(servo);
+Step stepper(servo, 13, 54, 126);
 int servoPosition = 54;
 
 int ledState = LOW;
@@ -12,10 +12,6 @@ int frequencyCountForDay = 0;
 unsigned long firstRandomRun = 0;
 unsigned long previousRandomRun = 0;
 long randomTime;
-
-const int ledPin =  13;
-const int minPosition = 54;
-const int maxPosition = 126;
 
 const unsigned long oneDay            = 86400000;
 const unsigned long eighteenHours     = 64800000;
@@ -33,7 +29,7 @@ const int BlinkFast = 3;
 void setup() 
 { 
   servo.attach(9);
-  pinMode(ledPin, OUTPUT);
+  pinMode(13, OUTPUT);
   randomSeed(analogRead(0));
   randomTime = random(thirtyMinutes, eightyMinutes);
 } 
@@ -68,7 +64,7 @@ boolean frequency(int currentMillis)
     {
       frequencyCountForDay++;
       previousFrequencyRun = currentMillis;   
-      step(500, 4, On);
+      stepper.RunSteps(500, 4, On);
       return true;
     }
   }
@@ -81,7 +77,7 @@ boolean intensity(int currentMillis)
   if(currentMillis - previousIntensityRun > oneDay) 
   {
     previousIntensityRun = currentMillis;
-    step(3500, 6, Off);
+    stepper.RunSteps(3500, 6, Off);
     return true;
   }
   
@@ -96,34 +92,9 @@ void coordinateRandom(int currentMillis)
     long randomSteps = random(40, 80);
     long randomSpeed = random(2, 3);
 
-    step(randomSteps, randomSpeed, BlinkFast);
+    stepper.RunSteps(randomSteps, randomSpeed, BlinkFast);
     
     randomTime = random(thirtyMinutes, eightyMinutes);
   }
-}
-
-void step(int steps, int stepSize, int ledMode) 
-{
-  if(ledMode == On)
-  {
-    digitalWrite(ledPin, HIGH);
-  }
-
-  for(int i = 0; i < steps; i++)
-  {
-    if(ledMode == BlinkFast) 
-    {
-      digitalWrite(ledPin, HIGH);
-    }
-
-    stepper.step(minPosition, maxPosition, stepSize);
-
-    if(ledMode == BlinkFast) 
-    {
-      digitalWrite(ledPin, LOW);
-    }
-  }
-
-  digitalWrite(ledPin, LOW);
 }
 
