@@ -10,7 +10,7 @@ const unsigned long _eighteenHours = 64800000;
 
 FrequencyGetter::FrequencyGetter(Step stepper) : _stepper(stepper) { }
 
-boolean FrequencyGetter::frequency(unsigned long currentMillis)
+boolean FrequencyGetter::execute(unsigned long currentMillis)
 {
 	if (currentMillis - _previousFrequencyRun >= _eighteenHours)
 	{

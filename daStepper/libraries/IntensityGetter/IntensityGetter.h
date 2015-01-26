@@ -1,12 +1,12 @@
-#ifndef FrequencyGetter_h
-#define FrequencyGetter_h
+#ifndef IntensityGetter_h
+#define IntensityGetter_h
 #include <Arduino.h>
 #include <Step.h>
 
-class FrequencyGetter
+class IntensityGetter
 {
 	public:
-		FrequencyGetter(Step stepper);
+		IntensityGetter(Step stepper);
 		boolean execute(unsigned long currentMillis);
 	private:
 		Step _stepper;
