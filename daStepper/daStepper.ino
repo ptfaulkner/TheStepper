@@ -1,10 +1,10 @@
 #include <Servo.h>
 #include <Step.h>
-#include <GoalGetter.h>
+#include <FrequencyGetter.h>
 
 Servo servo;
 Step stepper(servo, 13, 54, 126);
-GoalGetter goalGetter(stepper);
+FrequencyGetter frequencyGetter(stepper);
 int servoPosition = 54;
 
 int ledState = LOW;
@@ -34,44 +34,24 @@ void setup()
   pinMode(13, OUTPUT);
   randomSeed(analogRead(0));
   randomTime = random(thirtyMinutes, eightyMinutes);
+  Serial.begin(9600);
 } 
 
 void loop() 
 { 
   unsigned long currentMillis = millis();
-
-  if(goalGetter.Frequency(currentMillis))
+  
+  if(frequencyGetter.frequency(currentMillis))
   {
      return; 
   }
-
+/*
   if(intensity(currentMillis))
   {
     return;
   }
 
-  coordinateRandom(currentMillis);
-}
-
-boolean frequency(int currentMillis)
-{
-  if(currentMillis - previousFrequencyRun > eighteenHours)
-  {
-    frequencyCountForDay = 0;
-  }
-
-  if(currentMillis - previousFrequencyRun > oneHour) 
-  {
-    if(frequencyCountForDay < 6) 
-    {
-      frequencyCountForDay++;
-      previousFrequencyRun = currentMillis;   
-      stepper.RunSteps(500, 4, On);
-      return true;
-    }
-  }
-  
-  return false;   
+  coordinateRandom(currentMillis);*/
 }
 
 boolean intensity(int currentMillis)
@@ -79,7 +59,7 @@ boolean intensity(int currentMillis)
   if(currentMillis - previousIntensityRun > oneDay) 
   {
     previousIntensityRun = currentMillis;
-    stepper.RunSteps(3500, 6, Off);
+    stepper.runSteps(3500, 6, Off);
     return true;
   }
   
@@ -94,7 +74,7 @@ void coordinateRandom(int currentMillis)
     long randomSteps = random(40, 80);
     long randomSpeed = random(2, 3);
 
-    stepper.RunSteps(randomSteps, randomSpeed, BlinkFast);
+    stepper.runSteps(randomSteps, randomSpeed, BlinkFast);
     
     randomTime = random(thirtyMinutes, eightyMinutes);
   }
