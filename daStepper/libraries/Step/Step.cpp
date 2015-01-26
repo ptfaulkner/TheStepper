@@ -5,13 +5,13 @@
 
 Step::Step(Servo servo, int ledPin, int minPosition, int maxPosition)
 {
-  _servo = servo;
-  _ledPin = ledPin;
-  _minPosition = minPosition;
-  _maxPosition = maxPosition;
+	_servo = servo;
+	_ledPin = ledPin;
+	_minPosition = minPosition;
+	_maxPosition = maxPosition;
 }
 
-void Step::TakeStep(int minPosition, int maxPosition, int stepSize)
+void Step::takeStep(int minPosition, int maxPosition, int stepSize)
 {
 	int servoPosition = minPosition;
 
@@ -27,7 +27,7 @@ void Step::TakeStep(int minPosition, int maxPosition, int stepSize)
 	}
 }
 
-void Step::RunSteps(int numberOfSteps, int sizeOfStep, int ledMode)
+void Step::runSteps(int numberOfSteps, int sizeOfStep, int ledMode)
 {
 	if (ledMode == 1)
 	{
@@ -41,7 +41,7 @@ void Step::RunSteps(int numberOfSteps, int sizeOfStep, int ledMode)
 			digitalWrite(_ledPin, HIGH);
 		}
 
-		TakeStep(_minPosition, _maxPosition, sizeOfStep);
+		takeStep(_minPosition, _maxPosition, sizeOfStep);
 
 		if (ledMode == 3)
 		{
