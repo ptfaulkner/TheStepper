@@ -1,7 +1,15 @@
-#ifndef Step_h
-#define Step_h
-#include <Arduino.h>
-#include <Servo.h>
+// Step.h
+
+#ifndef _STEP_h
+#define _STEP_h
+
+
+#if defined(ARDUINO) && ARDUINO >= 100
+	#include "arduino.h"
+	#include "servo.h"
+#else
+	#include "WProgram.h"
+#endif
 
 class Step
 {
@@ -17,3 +25,4 @@ private:
 };
 
 #endif
+

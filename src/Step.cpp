@@ -29,6 +29,7 @@ void Step::takeStep(int minPosition, int maxPosition, int stepSize)
 
 void Step::runSteps(int numberOfSteps, int sizeOfStep, int ledMode)
 {
+	
 	if (ledMode == 1)
 	{
 		digitalWrite(_ledPin, HIGH);
