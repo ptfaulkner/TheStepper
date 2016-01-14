@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <Step.h>
+#include "Step.h"
 #include "FrequencyGetter.h"
 
 unsigned long _previousFrequencyRun = 0;

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <Step.h>
+#include "Step.h"
 #include "IntensityGetter.h"
 
 unsigned long previousIntensityRun = 0;

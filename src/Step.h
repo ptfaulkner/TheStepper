@@ -5,8 +5,8 @@
 
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-	#include "servo.h"
+        #include <Arduino.h>
+        #include <Servo.h>
 #else
 	#include "WProgram.h"
 #endif

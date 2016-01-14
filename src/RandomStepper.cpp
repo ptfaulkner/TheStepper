@@ -1,10 +1,6 @@
-// 
-// 
-// 
 #include <Arduino.h>
-#include <Step.h>
+#include "Step.h"
 #include "RandomStepper.h"
-
 
 const unsigned long thirtyMinutes = 1800000;
 const unsigned long eightyMinutes = 4800000;
