@@ -1,2 +1,0 @@
-Step   KEYWORD1
-step   KEYWORD2

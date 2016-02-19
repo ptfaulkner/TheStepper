@@ -1,5 +1,5 @@
 #include <Servo.h>
-#include <Step.h>
+#include "Step.h"
  
 Servo servo;
 Step stepper(servo);
@@ -13,6 +13,7 @@ unsigned long fiveMinutes = 72000;
 unsigned long thirtyMinutes = 1800000;
 unsigned long fourtyFiveMinutes = 2700000;
 unsigned long eightyMinutes = 4800000;
+unsigned long fifteenHours = 54000000;
 unsigned long currentMillis = 0;
 unsigned long lastRunMillis = 0;
  
@@ -28,7 +29,7 @@ void loop()
   if(lastRunMillis == 0 || (currentMillis - lastRunMillis) > fifteenHours) 
   {
     oneDaysGoals();
-	lastRunMillis = millis();
+    lastRunMillis = millis();
   }
 }
 
@@ -76,3 +77,4 @@ void intensity()
 {
   step(4000, 6);
 }
+
